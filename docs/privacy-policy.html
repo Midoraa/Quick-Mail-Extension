@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Quick Mail: Mini Inbox for Gmail</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #4f46e5;
+      --primary-soft: #eef2ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 16px 56px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+    }
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.25;
+    }
+    .meta {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    h2 {
+      margin: 28px 0 10px;
+      font-size: 18px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    p, li {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .limited-use-box {
+      margin: 18px 0;
+      padding: 16px 18px;
+      border-left: 4px solid var(--primary);
+      background: var(--primary-soft);
+      border-radius: 0 10px 10px 0;
+      color: #1e1b4b;
+      font-weight: 500;
+    }
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+    a {
+      color: var(--primary);
+    }
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <span class="badge">100% Client-Side Extension</span>
+    <h1>Privacy Policy — Quick Mail: Mini Inbox for Gmail</h1>
+    <p class="meta">Effective Date: November 21, 2026 &bull; Compatible with Google Chrome &amp; Microsoft Edge</p>
+
+    <p>
+      <strong>Quick Mail: Mini Inbox for Gmail</strong> ("Quick Mail") is a 100% client-side browser extension built with a single purpose:
+      helping you monitor unread Gmail counts and quickly read, organize, and reply to emails directly from your browser Popup or Side Panel.
+    </p>
+
+    <h2>1. Data Accessed via Gmail API (<code>gmail.modify</code>)</h2>
+    <p>
+      When you choose to sign in with your Google account, Quick Mail requests only the
+      <code>https://www.googleapis.com/auth/gmail.modify</code> OAuth 2.0 scope to access:
+    </p>
+    <ul>
+      <li><strong>Email profile &amp; label counts:</strong> Your Gmail address and unread/total counts for labels such as Inbox, Starred, Drafts, and Spam.</li>
+      <li><strong>Email metadata &amp; message bodies:</strong> Sender, recipient, subject, snippet, date, and message contents for messages in Inbox, Starred, Sent, Drafts, Spam, and Trash so you can read them securely inside the extension.</li>
+      <li><strong>User-initiated message actions:</strong> Marking read/unread, starring/unstarring, archiving, moving to Trash, recovering from Spam/Trash, creating/updating/sending/discarding drafts, and sending replies explicitly submitted by you. Quick Mail never requests broad <code>mail.google.com</code> permissions and never permanently deletes messages.</li>
+    </ul>
+
+    <h2>2. Purpose of Use</h2>
+    <p>
+      All data accessed from Google is used <strong>exclusively</strong> to provide Quick Mail's user-facing mini-inbox features inside your browser:
+    </p>
+    <ul>
+      <li>Updating the toolbar badge unread counter (Inbox unread only) and optional desktop notifications via <code>chrome.alarms</code> and <code>chrome.notifications</code>.</li>
+      <li>Displaying folders, reading emails safely after strict XSS sanitization, and sending replies or drafts triggered by your actions.</li>
+    </ul>
+
+    <h2>3. Zero Backend &amp; Local-Only Storage</h2>
+    <p>
+      Quick Mail operates with <strong>zero developer backend servers, zero telemetry, zero analytics, and zero third-party data sharing</strong>.
+      All requests communicate directly between your browser and official Google endpoints:
+    </p>
+    <ul>
+      <li><code>https://gmail.googleapis.com/gmail/v1/users/me/*</code> — direct Gmail REST API v1 operations.</li>
+      <li><code>https://accounts.google.com/o/oauth2/v2/auth</code> &amp; <code>https://oauth2.googleapis.com/revoke</code> — authenticating and revoking OAuth 2.0 tokens via <code>chrome.identity</code>.</li>
+      <li><strong><code>chrome.storage.local</code>:</strong> Stores local preferences (polling interval, notification toggle, optional Edge Web Client ID, last opened folder) and short-lived Edge Web Flow OAuth tokens with expiration timestamps.</li>
+      <li><strong><code>chrome.storage.session</code>:</strong> Temporarily stores unsent reply and draft edits solely in browser session memory.</li>
+      <li><strong>Privacy-preserving rendering:</strong> Plain text is preferred, HTML bodies are strictly sanitized, and remote images are hidden by default to block tracking pixels.</li>
+    </ul>
+
+    <h2>4. Google API Services User Data Policy (Limited Use)</h2>
+    <div class="limited-use-box">
+      Quick Mail: Mini Inbox for Gmail's use and transfer to any other app of information received from Google APIs will adhere to
+      <a href="https://developers.google.com/workspace/workspace-api-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>,
+      including the Limited Use requirements.
+    </div>
+    <ul>
+      <li>Quick Mail does <strong>not</strong> sell, rent, or transfer your Google user data to advertisers, data brokers, or third parties.</li>
+      <li>Quick Mail does <strong>not</strong> use Gmail data to train generalized AI/ML models.</li>
+      <li>Human access to your email data is technically impossible because no external servers receive or store your messages.</li>
+    </ul>
+
+    <h2>5. Revoking Access &amp; Deleting Local Data</h2>
+    <p>
+      You stay in full control of your data and can revoke access at any time:
+    </p>
+    <ul>
+      <li>Click <strong>"Sign out"</strong> inside Quick Mail's Settings view to immediately revoke the active OAuth token with Google and wipe all cached tokens, sync state, and session drafts from your browser.</li>
+      <li>Or remove access directly from your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">Google Account Permissions</a> page.</li>
+    </ul>
+
+    <footer>
+      Developer Support: Replace with your contact email before publishing on Chrome Web Store &amp; Edge Add-ons.
+    </footer>
+  </main>
+</body>
+</html>

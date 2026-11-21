@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Mail — Side Panel</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body data-mode="sidepanel">
+  <div id="app" class="app-shell">
+    <header class="app-header">
+      <div class="header-left">
+        <button id="btnMenu" class="icon-btn" type="button" title="Navigation menu" aria-label="Open navigation menu"
+          aria-expanded="false" aria-controls="navDrawer" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg>
+        </button>
+        <img src="icons/icon48.png" alt="Quick Mail" class="brand-logo" width="20" height="20">
+        <span id="headerTitle" class="brand-title">Quick Mail</span>
+        <span id="unreadBadge" class="unread-pill" hidden>0</span>
+      </div>
+      <div class="header-actions">
+        <button id="btnRefresh" class="icon-btn" type="button" title="Refresh" aria-label="Refresh folder">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-2.64-6.36M21 4v5h-5" />
+          </svg>
+        </button>
+        <button id="btnOpenSidePanel" class="icon-btn" type="button" title="Open in Side Panel"
+          aria-label="Open in Side Panel" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <line x1="15" y1="4" x2="15" y2="20" />
+          </svg>
+        </button>
+        <button id="btnSettings" class="icon-btn" type="button" title="Settings" aria-label="Settings and account">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.39 1.26 1 1.51.3.13.62.2.95.2H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Slide-out Navigation Drawer -->
+    <div id="navBackdrop" class="nav-backdrop" hidden></div>
+    <aside id="navDrawer" class="nav-drawer" aria-label="Gmail folders" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <img src="icons/icon48.png" alt="" class="brand-logo" width="22" height="22">
+          <div class="drawer-brand-text">
+            <div class="drawer-brand-name">Quick Mail</div>
+            <div id="drawerAccount" class="drawer-account">Not signed in</div>
+          </div>
+        </div>
+        <button id="btnCloseDrawer" class="icon-btn" type="button" title="Close menu"
+          aria-label="Close navigation menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="drawer-nav" aria-label="Folders">
+        <button class="drawer-item is-active" type="button" data-folder="INBOX">
+          <span class="drawer-item-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+              <path
+                d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+            </svg>
+            <span>Inbox</span>
+          </span>
+          <span id="countInbox" class="drawer-count" hidden>0</span>
+        </button>
+
+        <button class="drawer-item" type="button" data-folder="STARRED">
+          <span class="drawer-item-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <span>Starred</span>
+          </span>
+          <span id="countStarred" class="drawer-count" hidden>0</span>
+        </button>
+
+        <button class="drawer-item" type="button" data-folder="SENT">
+          <span class="drawer-item-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+            <span>Sent</span>
+          </span>
+        </button>
+
+        <button class="drawer-item" type="button" data-folder="DRAFT">
+          <span class="drawer-item-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+            </svg>
+            <span>Drafts</span>
+          </span>
+          <span id="countDraft" class="drawer-count" hidden>0</span>
+        </button>
+
+        <div class="drawer-divider"></div>
+
+        <button class="drawer-item" type="button" data-folder="SPAM">
+          <span class="drawer-item-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>Spam</span>
+          </span>
+          <span id="countSpam" class="drawer-count is-warn" hidden>0</span>
+        </button>
+
+        <button class="drawer-item" type="button" data-folder="TRASH">
+          <span class="drawer-item-left">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+              <path d="M10 11v6M14 11v6" />
+            </svg>
+            <span>Trash</span>
+          </span>
+        </button>
+      </nav>
+
+      <div class="drawer-footer">
+        <div>100% Client-Side • Scope <code>gmail.modify</code></div>
+        <a id="linkDrawerPrivacy" class="drawer-privacy-link" href="docs/privacy-policy.html" target="_blank"
+          rel="noopener noreferrer">
+          Privacy Policy
+        </a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <!-- View 1: Welcome / Sign-In -->
+      <section id="viewWelcome" class="view view-welcome" hidden>
+        <div class="welcome-card">
+          <img src="icons/icon128.png" alt="Quick Mail" class="welcome-icon" width="46" height="46">
+          <h1 class="welcome-title">Quick Mail: Mini Inbox</h1>
+          <p class="welcome-subtitle">
+            Monitor unread Gmail counts, browse your folders, and reply quickly right from the Popup or Side Panel.
+          </p>
+
+          <div class="privacy-chip">
+            100% Client-Side • Zero Backend
+          </div>
+
+          <div id="setupBanner" class="notice-banner notice-info" hidden>
+            <strong>Google OAuth Client ID missing:</strong> Replace the placeholder in <code>manifest.json</code> or
+            enter a Web Client ID in Settings before signing in.
+          </div>
+
+          <div id="welcomeError" class="notice-banner notice-error" hidden></div>
+
+          <div class="disclosure-box" role="note" aria-label="Privacy and data disclosure">
+            Quick Mail connects directly to the Gmail API from your browser to display and manage your emails. Your data
+            is processed locally with zero third-party servers and adheres to the <strong>Google API Services User Data
+              Policy (Limited Use)</strong>.
+          </div>
+
+          <div class="welcome-actions">
+            <button id="btnSignIn" class="btn btn-primary" type="button">
+              Sign in with Google
+            </button>
+          </div>
+
+          <footer class="welcome-footer">
+            <a id="linkWelcomePrivacy" class="privacy-link" href="docs/privacy-policy.html" target="_blank"
+              rel="noopener noreferrer">
+              Privacy Policy &amp; Data Notice
+            </a>
+          </footer>
+        </div>
+      </section>
+
+      <!-- View 2: Folder / Inbox List -->
+      <section id="viewInbox" class="view view-inbox" hidden>
+        <div class="inbox-toolbar">
+          <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input id="searchInput" class="search-input" type="search" placeholder="Search mail..."
+              aria-label="Search mail" autocomplete="off" spellcheck="false">
+            <button id="btnClearSearch" class="clear-search-btn" type="button" title="Clear search"
+              aria-label="Clear search" hidden>
+              &times;
+            </button>
+          </div>
+
+          <div id="filterTabs" class="filter-tabs" role="tablist" aria-label="Filter messages">
+            <button id="filterAll" class="filter-tab is-active" type="button" role="tab" aria-selected="true">
+              All
+            </button>
+            <button id="filterUnread" class="filter-tab" type="button" role="tab" aria-selected="false">
+              Unread
+            </button>
+          </div>
+        </div>
+
+        <div id="folderNoticeBanner" class="folder-notice" hidden></div>
+
+        <div id="inboxError" class="notice-banner notice-error inline-banner" hidden>
+          <span id="inboxErrorText">Unable to load messages.</span>
+          <button id="btnRetryInbox" class="link-btn" type="button">Retry</button>
+        </div>
+
+        <div id="inboxLoading" class="inbox-loading" hidden>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+        </div>
+
+        <div id="inboxEmpty" class="empty-state" hidden>
+          <p class="empty-title">No messages found</p>
+          <p class="empty-desc">This folder is empty or no messages match your current filter.</p>
+        </div>
+
+        <ul id="inboxList" class="email-list" aria-label="Email list"></ul>
+      </section>
+
+      <!-- View 3: Detail & Quick Reply -->
+      <section id="viewDetail" class="view view-detail" hidden>
+        <div class="detail-toolbar">
+          <button id="btnBack" class="btn-ghost" type="button" title="Back to list">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span>Back</span>
+          </button>
+
+          <div class="detail-toolbar-actions">
+            <button id="btnDetailNotSpam" class="btn-pill btn-pill-safe" type="button" hidden>
+              Not spam
+            </button>
+            <button id="btnDetailRestore" class="btn-pill btn-pill-safe" type="button" hidden>
+              Restore to Inbox
+            </button>
+            <button id="btnDetailStar" class="icon-btn star-btn" type="button" title="Add star"
+              aria-label="Toggle star">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </button>
+            <button id="btnDetailToggleRead" class="icon-btn" type="button" title="Mark as unread"
+              aria-label="Mark as read or unread">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <polyline points="3 7 12 13 21 7" />
+              </svg>
+            </button>
+            <button id="btnDetailArchive" class="icon-btn" type="button" title="Archive" aria-label="Archive">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="4" rx="1" />
+                <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8" />
+                <line x1="10" y1="12" x2="14" y2="12" />
+              </svg>
+            </button>
+            <button id="btnDetailTrash" class="icon-btn icon-btn-danger" type="button" title="Move to Trash"
+              aria-label="Move to Trash">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                <path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+              </svg>
+            </button>
+            <button id="btnOpenInGmail" class="btn-pill" type="button" title="Open thread in Gmail">
+              Open in Gmail
+            </button>
+          </div>
+        </div>
+
+        <div id="detailScroll" class="detail-scroll">
+          <h2 id="detailSubject" class="detail-subject"></h2>
+
+          <div class="detail-meta">
+            <div id="detailAvatar" class="avatar-circle" aria-hidden="true"></div>
+            <div class="detail-meta-text">
+              <div class="detail-sender-row">
+                <span id="detailSenderName" class="detail-sender-name"></span>
+                <span id="detailDate" class="detail-date"></span>
+              </div>
+              <div id="detailSenderEmail" class="detail-sender-email"></div>
+              <div id="detailRecipient" class="detail-recipient"></div>
+            </div>
+          </div>
+
+          <div id="detailBodyModeWrap" class="body-mode-bar" hidden>
+            <span id="detailBodyModeLabel" class="body-mode-label">Viewing safe plain text</span>
+            <button id="btnToggleBodyMode" class="link-btn" type="button">View sanitized HTML</button>
+          </div>
+
+          <div id="detailBody" class="detail-body"></div>
+          <div id="detailReplies" class="detail-replies"></div>
+        </div>
+
+        <form id="quickReplyForm" class="quick-reply-bar">
+          <div class="quick-reply-meta">
+            <span id="replyToLabel" class="reply-to-label"></span>
+            <span id="draftIndicator" class="draft-indicator">Draft auto-saved</span>
+          </div>
+          <div class="quick-reply-input-row">
+            <textarea id="quickReplyInput" class="quick-reply-textarea" rows="2"
+              placeholder="Quick Reply... (Ctrl+Enter to send)" aria-label="Quick Reply"></textarea>
+            <button id="btnSendReply" class="btn btn-primary send-btn" type="submit" title="Send">
+              Send
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- View 4: Quick Draft Editor -->
+      <section id="viewDraft" class="view view-draft" hidden>
+        <div class="detail-toolbar">
+          <button id="btnDraftBack" class="btn-ghost" type="button" title="Back to Drafts">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span>Drafts</span>
+          </button>
+
+          <div class="detail-toolbar-actions">
+            <button id="btnDraftDelete" class="icon-btn icon-btn-danger" type="button" title="Discard Draft"
+              aria-label="Discard Draft">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                <path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+              </svg>
+            </button>
+            <button id="btnDraftSave" class="btn btn-secondary btn-xs" type="button">
+              Save Draft
+            </button>
+            <button id="btnDraftSend" class="btn btn-primary btn-xs" type="button">
+              Send
+            </button>
+          </div>
+        </div>
+
+        <div class="draft-editor-form">
+          <label class="draft-field">
+            <span class="draft-field-label">To</span>
+            <input id="draftToInput" class="draft-field-input" type="text" placeholder="recipient@example.com"
+              autocomplete="off" spellcheck="false">
+          </label>
+          <label class="draft-field">
+            <span class="draft-field-label">Subject</span>
+            <input id="draftSubjectInput" class="draft-field-input" type="text" placeholder="Subject...">
+          </label>
+          <div class="draft-status-bar">
+            <span id="draftEditorStatus">Editing draft</span>
+          </div>
+          <textarea id="draftBodyInput" class="draft-body-textarea" placeholder="Write your message..."
+            aria-label="Draft message body"></textarea>
+        </div>
+      </section>
+
+      <!-- View 5: Settings -->
+      <section id="viewSettings" class="view view-settings" hidden>
+        <div class="detail-toolbar">
+          <button id="btnSettingsBack" class="btn-ghost" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span>Back</span>
+          </button>
+          <span class="settings-heading">Settings &amp; Account</span>
+        </div>
+
+        <div class="settings-scroll">
+          <div class="settings-card">
+            <div class="settings-label">Connected account</div>
+            <div id="settingsAccountValue" class="settings-account">Not signed in</div>
+            <div id="settingsAuthMethod" class="settings-subtext"></div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Check for new mail every</div>
+                <div class="settings-subtext">Updates toolbar badge via background alarms</div>
+              </div>
+              <select id="settingsPollInterval" class="settings-select" aria-label="Polling interval">
+                <option value="1">1 min</option>
+                <option value="3">3 min</option>
+                <option value="5">5 min</option>
+              </select>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <label class="settings-row settings-toggle-row" for="settingsNotifications">
+              <div>
+                <div class="settings-label">Desktop notifications</div>
+                <div class="settings-subtext">Notify when new unread Inbox messages arrive</div>
+              </div>
+              <input id="settingsNotifications" class="toggle-input" type="checkbox">
+            </label>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-label">Edge / Web OAuth Configuration (optional)</div>
+            <div class="settings-subtext">
+              On Microsoft Edge, create a Web Application Client ID and add this Redirect URI in Google Cloud Console.
+            </div>
+            <div class="redirect-box">
+              <code id="settingsRedirectUrl" class="redirect-url"></code>
+              <button id="btnCopyRedirectUrl" class="btn-mini" type="button">Copy</button>
+            </div>
+            <div class="web-client-row">
+              <input id="settingsWebClientId" class="settings-input" type="text"
+                placeholder="Web OAuth Client ID (.apps.googleusercontent.com)" aria-label="Web OAuth Client ID"
+                spellcheck="false">
+              <button id="btnSaveWebClientId" class="btn btn-secondary btn-sm" type="button">Save</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Privacy &amp; Google User Data</div>
+                <div class="settings-subtext">Adheres to Google API Services User Data Policy</div>
+              </div>
+              <a id="linkSettingsPrivacy" class="privacy-link settings-privacy-link" href="docs/privacy-policy.html"
+                target="_blank" rel="noopener noreferrer">
+                Privacy Policy
+              </a>
+            </div>
+          </div>
+
+          <div class="settings-card settings-danger-zone">
+            <button id="btnSignOut" class="btn btn-danger" type="button">
+              Sign out
+            </button>
+            <div class="settings-subtext center-text">
+              Revokes the active OAuth token and clears all locally cached extension data.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
